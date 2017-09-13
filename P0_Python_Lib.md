@@ -1,5 +1,7 @@
-# 重要的python库
-这里主要说明python中重要的库
+# P0_重要的python库
+
+#### 这里是Python数据分析学习的第零篇笔记
+本文主要介绍了python中重要的库
 
 ----
 ### Numpy（Numerical Python）
