@@ -1,7 +1,7 @@
 # P0_重要的python库
 
 #### 这里是Python数据分析学习的第零篇笔记
-本文主要介绍了python中重要的库
+本文包括Numpy、Pandas、Matplotlib和SciPy四大数据分析常用库的介绍
 
 ----
 ### Numpy（Numerical Python）
