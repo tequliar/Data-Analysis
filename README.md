@@ -34,7 +34,8 @@
 ### [P7_PythonNumpy基础](https://github.com/hyacinthee/Data-Analysis/blob/master/P7_Python_NumpyBasic.md)
 本文包括了Numpy的数组对象和数据类型
 
-[]()
+### [P8_PythonNumpy数组对象](https://github.com/hyacinthee/Data-Analysis/blob/master/P7_Python_NumpyArray.md)
+本文包括了Numpy的矢量化运算，索引与切片，改变维度，组合与分割以及数组的转换
 
 ---
 ## 说明
