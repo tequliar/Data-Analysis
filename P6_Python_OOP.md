@@ -176,3 +176,129 @@ del a       # Decrease ref. count  of <40>
 b = 100     # Decrease ref. count  of <40> 
 c[0] = -1   # Decrease ref. count  of <40>
 ```
+
+通常情况下，垃圾回收器会销毁孤立的实例并回收其空间。 但是，类可以实现调用析构函数的特殊方法 `__del__()` ，该方法在实例即将被销毁时被调用。 此方法可能用于清理实例使用的任何非内存资源。
+
+#### 示例
+这个 `__del__()` 析构函数打印要被销毁的实例的类名：
+```
+class Point:
+   def __init__( self, x=0, y=0):
+      self.x = x
+      self.y = y
+   def __del__(self):
+      class_name = self.__class__.__name__
+      print (class_name, "destroyed")
+
+pt1 = Point()
+pt2 = pt1
+pt3 = pt1
+print (id(pt1), id(pt2), id(pt3));   # prints the ids of the obejcts
+del pt1
+del pt2
+del pt3
+```
+当执行上述代码时，会产生以下结果：
+```
+3083401324 3083401324 3083401324
+Point destroyed
+```
+＞ 注意 - 理想情况下，应该在单独的文件中定义类，然后使用 `import` 语句将其导入主程序文件。
+
+在上面的例子中，假定 `Point` 类的定义包含在 `point.py` 中，并且其中没有其他可执行代码。
+```
+import point
+p1 = point.Point()
+```
+
+### 类继承
+使用类继承不用从头开始构建代码，可以通过在新类名后面的括号中列出父类来从一个预先存在的类派生它来创建一个类。
+
+子类继承其父类的属性，可以像类中一样定义和使用它们。子类也可以从父类代替代数据成员和方法。
+
+#### 语法
+派生类被声明为很像它们的父类; 然而，继承的基类的列表在类名之后给出：
+```
+class SubClassName (ParentClass1[, ParentClass2, ...]):
+   'Optional class documentation string'
+   class_suite
+```
+
+#### 示例
+```
+class Parent:        # define parent class
+   parentAttr = 100
+   def __init__(self):
+      print ("Calling parent constructor")
+
+   def parentMethod(self):
+      print ('Calling parent method')
+
+   def setAttr(self, attr):
+      Parent.parentAttr = attr
+
+   def getAttr(self):
+      print ("Parent attribute :", Parent.parentAttr)
+
+class Child(Parent): # define child class
+   def __init__(self):
+      print ("Calling child constructor")
+
+   def childMethod(self):
+      print ('Calling child method')
+
+c = Child()          # instance of child
+c.childMethod()      # child calls its method
+c.parentMethod()     # calls parent's method
+c.setAttr(200)       # again call parent's method
+c.getAttr()          # again call parent's method
+```
+当执行上述代码时，会产生以下结果：
+```
+Calling child constructor
+Calling child method
+Calling parent method
+Parent attribute : 200
+```
+
+以类似的方式，可以从多个父类来构建一个新的类，如下所示：
+
+```
+class A:        # define your class A
+.....
+
+class B:         # define your calss B
+.....
+
+class C(A, B):   # subclass of A and B
+.....
+```
+可以使用 `issubclass()` 或 `isinstance()` 函数来检查两个类和实例之间的关系。
+- `issubclass(sub，sup)` 布尔函数如果给定的子类`sub`确实是超类`sup`的子类返回True。
+- `isinstance(obj，Class)` 布尔函数如果`obj`是类`Class`的一个实例，或者是类的一个子类的实例则返回 `True`。
+
+### 重载方法
+可以随时重载父类的方法。 重载父方法的一个原因是：您可能希望在子类中使用特殊或不同的方法功能。
+
+#### 示例
+```
+class Parent:        # define parent class
+   def myMethod(self):
+      print ('Calling parent method')
+
+class Child(Parent): # define child class
+   def myMethod(self):
+      print ('Calling child method')
+
+c = Child()          # instance of child
+c.myMethod()         # child calls overridden method
+```
+
+当执行上述代码时，会产生以下结果：
+```
+Calling child method
+```
+
+#### 基本重载方法
+下表列出了可以在自己的类中覆盖的一些通用方法：
+
