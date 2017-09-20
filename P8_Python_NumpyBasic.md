@@ -1,6 +1,6 @@
-# P7_PythonNumpy基础
+# P8_PythonNumpy基础
 
-#### 这里是Python数据分析学习的第七篇笔记
+#### 这里是Python数据分析学习的第八篇笔记
 本文包括了Numpy的数组对象和数据类型
 
 ---
