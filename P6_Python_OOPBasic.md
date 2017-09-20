@@ -1,13 +1,13 @@
-# P6_Python面向对象
+# P6_Python面向对象基础
 
 #### 这里是Python数据分析学习的第六篇笔记
-本文包括了类和对象，构造函数，继承，多重继承和操作符重载。
+本文包括了创建类、创建实例对象、访问属性、内置类属性、销毁对象、类继承、重载运算符和数据隐藏
 
 ---
-## 类和对象
+
 自从存在以来，Python一直是面向对象的语言。因此，创建和使用类和对象是非常容易的。
 
-### 创建类
+## 创建类
 `class`语句创建一个新的类定义。类的名称紧跟在`class`关键字之后，在类的名称之后紧跟冒号。如下：
 ```
 class ClassName:
@@ -17,7 +17,7 @@ class ClassName:
 - 该类有一个文档字符串，可以通过`ClassName.__doc__`访问。
 - `class_suite`由定义类成员，数据属性和函数的所有组件语句
 
-#### 示例
+### 示例
 以下是一个简单的Python类的例子：
 ```
 class Employee:
@@ -39,7 +39,7 @@ class Employee:
 - 第一个方法`__init__()`是一种特殊的方法，当创建此类的新实例时，该方法称为Python构造函数或初始化方法。
 - 声明其他类方法，如正常函数，但每个方法的第一个参数是self。Python将`self`参数添加到列表中;调用方法时不需要包括它。
 
-### 创建实例对象
+## 创建实例对象
 要创建类的实例，可以使用类名调用该类，并传递其`__init__`方法接受的任何参数。
 ```
 ## This would create first object of Employee class
@@ -48,7 +48,7 @@ emp1 = Employee(“Maxsu”, 2000)
 emp2 = Employee(“Kobe”, 5000)
 ```
 
-### 访问属性
+## 访问属性
 可以使用带有对象的点(`.`)运算符来访问对象的属性。类变量将使用类名访问如下：
 ```
 emp1.displayEmployee()
@@ -109,7 +109,7 @@ setattr(emp1, 'salary', 7000) # Set attribute 'salary' at 7000
 delattr(emp1, 'salary')    # Delete attribute 'salary'
 ```
 
-### 内置类属性
+## 内置类属性
 每个Python类保持以下内置属性，并且可以像任何其他属性一样使用点运算符访问它们：
 - `__dict__` - 包含该类的命名空间的字典。
 - `__doc__` - 类文档字符串或无，如果未定义。
@@ -160,7 +160,7 @@ Employee.__dict__: {
 }
 ```
 
-### 销毁垃圾(垃圾收集)
+## 销毁垃圾(垃圾收集)
 Python自动删除不需要的对象(内置类型或类实例)以释放内存空间。 Python定期回收不再使用的内存块的过程称为垃圾收集。
 
 Python的垃圾收集器在程序执行期间运行，当对象的引用计数达到零时触发。 对象的引用计数随着指向它的别名数量而变化。
@@ -179,7 +179,7 @@ c[0] = -1   # Decrease ref. count  of <40>
 
 通常情况下，垃圾回收器会销毁孤立的实例并回收其空间。 但是，类可以实现调用析构函数的特殊方法 `__del__()` ，该方法在实例即将被销毁时被调用。 此方法可能用于清理实例使用的任何非内存资源。
 
-#### 示例
+### 示例
 这个 `__del__()` 析构函数打印要被销毁的实例的类名：
 ```
 class Point:
@@ -211,12 +211,12 @@ import point
 p1 = point.Point()
 ```
 
-### 类继承
+## 类继承
 使用类继承不用从头开始构建代码，可以通过在新类名后面的括号中列出父类来从一个预先存在的类派生它来创建一个类。
 
 子类继承其父类的属性，可以像类中一样定义和使用它们。子类也可以从父类代替代数据成员和方法。
 
-#### 语法
+### 语法
 派生类被声明为很像它们的父类; 然而，继承的基类的列表在类名之后给出：
 ```
 class SubClassName (ParentClass1[, ParentClass2, ...]):
@@ -224,7 +224,7 @@ class SubClassName (ParentClass1[, ParentClass2, ...]):
    class_suite
 ```
 
-#### 示例
+### 示例
 ```
 class Parent:        # define parent class
    parentAttr = 100
@@ -277,10 +277,10 @@ class C(A, B):   # subclass of A and B
 - `issubclass(sub，sup)` 布尔函数如果给定的子类`sub`确实是超类`sup`的子类返回True。
 - `isinstance(obj，Class)` 布尔函数如果`obj`是类`Class`的一个实例，或者是类的一个子类的实例则返回 `True`。
 
-### 重载方法
+## 重载方法
 可以随时重载父类的方法。 重载父方法的一个原因是：您可能希望在子类中使用特殊或不同的方法功能。
 
-#### 示例
+### 示例
 ```
 class Parent:        # define parent class
    def myMethod(self):
@@ -299,6 +299,85 @@ c.myMethod()         # child calls overridden method
 Calling child method
 ```
 
-#### 基本重载方法
+### 基本重载方法
 下表列出了可以在自己的类中覆盖的一些通用方法：
 
+编号|方法|描述|调用示例
+---|---|---|---
+1|`__init__ ( self [,args...] )`|	构造函数(带任意可选参数)|`obj = className(args)`
+2|`__del__( self )`|	析构函数，删除一个对象|`del obj`
+3|`__repr__( self )`|	可评估求值的字符串表示|`repr(obj)`
+4|`__str__( self )`|	可打印的字符串表示|`str(obj)`
+5|`__cmp__ ( self, x )`|对象比较|`cmp(obj, x)`
+
+## 重载运算符
+假设已经创建了一个 `Vector` 类来表示二维向量。当使用加号(`+`)运算符执行运算时，它们会发生什么？ 很可能Python理解不了你想要做什么。
+
+但是，可以在类中定义__add__方法来执行向量加法，然后将按照期望行为那样执行加法运算:
+### 示例
+```
+class Vector:
+   def __init__(self, a, b):
+      self.a = a
+      self.b = b
+
+   def __str__(self):
+      return 'Vector (%d, %d)' % (self.a, self.b)
+
+   def __add__(self,other):
+      return Vector(self.a + other.a, self.b + other.b)
+
+v1 = Vector(2,10)
+v2 = Vector(5,-2)
+print (v1 + v2)
+```
+当执行上述代码时，会产生以下结果:
+
+```
+Vector(7,8)
+```
+
+## 数据隐藏
+
+对象的属性在类定义之外可能或不可见。需要使用双下划线前缀命名属性，然后这些属性将不会直接对外部可见。
+
+### 示例
+
+```
+class JustCounter:
+   __secretCount = 0
+
+   def count(self):
+      self.__secretCount += 1
+      print (self.__secretCount)
+
+counter = JustCounter()
+counter.count()
+counter.count()
+print (counter.__secretCount)
+```
+
+当执行上述代码时，会产生以下结果：
+```
+1
+2
+Traceback (most recent call last):
+   File "test.py", line 12, in <module>
+      print counter.__secretCount
+AttributeError: JustCounter instance has no attribute '__secretCount'
+```
+
+Python通过内部更改名称来包含类名称来保护这些成员。 可以访问 `object._className__attrName` 等属性。如果将最后一行替换为以下，那么它适用于:
+
+```
+.........................
+print (counter._JustCounter__secretCount)
+```
+
+当执行上述代码时，会产生以下结果:
+
+```
+1
+2
+2
+```
